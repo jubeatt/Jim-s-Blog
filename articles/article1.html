@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0"
+	>
+	<meta
+		name="description"
+		content="Jim的學習筆記，用來記錄學習或是開發中所碰到的困難"
+	>
+	<meta
+		name="keyword"
+		content="Jim, 前端魚池, HTML, CSS, JavaScript"
+	>
+	<title>Jim's Blog - 前端魚池</title>
+	<!-- home icon -->
+	<link
+		rel="apple-touch-icon"
+		href="apple-touch-icon.png"
+	>
+	<link
+		rel="icon"
+		sizes="192x192"
+		href="apple-touch-icon.png"
+	>
+	<!-- fontawesome -->
+	<link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+		integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+		crossorigin="anonymous"
+	/>
+	<!-- google-font -->
+	<link
+		rel="preconnect"
+		href="https://fonts.gstatic.com"
+	>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+		rel="stylesheet"
+	>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
+		rel="stylesheet"
+	>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;400;500;600;700;900&display=swap"
+		rel="stylesheet"
+	>
+	<!-- stylesheet -->
+	<link
+		rel="stylesheet"
+		href="../css/reset.css"
+	>
+	<link
+		rel="stylesheet"
+		href="../css/layout.css"
+	>
+	<link
+		rel="stylesheet"
+		href="../css/article.css"
+	>
+	<!-- article-picture -->
+	<style>
+		.header {
+			background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../images/thumbnail01.png");
+		}
+	</style>
+	<!-- plug-in -->
+	<link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/atom-one-dark.min.css"
+	>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+	<script>
+		hljs.highlightAll();
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/code-line"></script>
+	<script>
+		CodeLine.initOnPageLoad({
+			minLine: 0,
+		})
+	</script>
+</head>
+
+<body>
+
+
+	<div id="app">
+		<h1 class="hide-heading">Jim's Blog - 前端魚池</h1>
+		<!-- Navigation -->
+		<nav class="main-nav">
+			<div class="container">
+				<a
+					class="logo"
+					:href="links.homePage"
+				><span>{{user.name}}</span>'s Blog</a>
+				<button
+					class="menu-btn"
+					id="menuBtn"
+				>
+					<span class="burger"></span>
+				</button>
+				<ul
+					class="main-nav-list"
+					id="menuList"
+				>
+					<li><a href="#">文章列表</a></li>
+					<li><a href="#">文章分類</a></li>
+					<li><a href="#">Tags</a></li>
+					<li><a :href="links.aboutPage">關於作者</a></li>
+				</ul>
+				<a
+					class="github"
+					:href="links.github"
+					target="_blank"
+				><img src="../images/github.png"></a>
+				</span>
+		</nav>
+		<!-- Header -->
+		<header class="header">
+			<h1>{{ articles[0].title }}</h1>
+			<time>{{ articles[0].date }}</time>
+		</header>
+		<!-- Main Content-->
+		<div class="wrap article-page-wrap">
+			<!-- Author -->
+			<section class="author">
+				<div class="info">
+					<a
+						class="avatar"
+						:href="links.aboutPage"
+					><img :src="user.avatar"></a>
+					<p><a
+							class="link"
+							:href="links.aboutPage"
+						>{{ user.name }}</a></p>
+					<p>{{ user.skill }}</p>
+					<p>{{ user.memo }}</p>
+					<div class="social-media">
+						<a
+							:href="links.github"
+							target="_blank"
+						><i
+								class="fa fa-github"
+								aria-hidden="true"
+							></i></i></a>
+						<a :href="links.email"><i
+								class="fa fa-envelope-o"
+								aria-hidden="true"
+							></i></a>
+						<a
+							:href="links.facebook"
+							target="_blank"
+						><i
+								class="fa fa-facebook-square"
+								aria-hidden="true"
+							></i></a>
+					</div>
+				</div>
+				<div class="total-post">
+					<p>共{{ countTotalPost }}篇文章</p>
+				</div>
+				<div class="latest-post">
+					<p>最新文章</p>
+					<ul class="latest-post-list">
+						<li><a :href="articles[0].link">{{ articles[0].title }}</a></li>
+					</ul>
+				</div>
+				<div class="other-link">
+					<p>前端部落格推薦</p>
+					<ul class="other-link-list">
+						<li><a :href="recommendBlogger[0].link">{{ recommendBlogger[0].name }}</a></li>
+						<li><a :href="recommendBlogger[1].link">{{ recommendBlogger[1].name }}</a></li>
+						<li><a :href="recommendBlogger[2].link">{{ recommendBlogger[2].name }}</a></li>
+						<li><a :href="recommendBlogger[3].link">{{ recommendBlogger[3].name }}</a></li>
+					</ul>
+				</div>
+			</section>
+			<!-- articles -->
+			<article class="articles article-area">
+				<h2>前言</h2>
+				<p>
+					作為一名前端開發者，除了摸索基礎的程式知識以外，如何提升開發效率也是件很重要的課題。<br>
+					因此目前正在學習JavaScript框架的使用方式，也打算將此做為一個主題來做教學，<br>希望透過分享自己的學習紀錄，讓各位讀者能夠一起與我一起探索Vue.js是什麼玩意兒呢？</p>
+
+
+
+
+
+
+
+
+
+
+				<h2>Vue.js是什麼？</h2>
+				<p>
+					你可能曾經聽過Vue是一個樣板框架這種說法，究竟什麼是樣板框架？讓我們一步一步來解說吧！<br>
+					首先來從我們很熟悉的網頁來做解說，一個網頁的結構，簡單來說可以切割成四個項目：
+				</p>
+				<ul>
+					<li>標記（HTML）</li>
+					<li>內容（網頁中的文字、圖片、連結等...資料）</li>
+					<li>樣式（CSS）</li>
+					<li>程式（JavaScript）</li>
+				</ul>
+				<p>
+					Vue的作用就是負責把網頁中「內容」的部分給抽起來，換句話說，這些內容就代表了<strong>資料</strong>。
+					<br>
+					這樣的用意是什麼呢？這是為了<strong>讓管理資料與畫面的方式能夠更簡單</strong>。
+				</p>
+				<p>還是摸不著頭緒？其實你可以仔細想想，這個問題就類似於「我們如何用CSS來控制網頁的樣式佈局」是一樣的道理。<br>
+					舉例來說，假使今天有10個網頁要做樣式佈局，我相信有遠見的你會知道，<strong>「啊！我們可以應該要把相同樣式的部分寫成一份CSS來統一管理，免得之後要維護時搞死自己！」</strong>。
+				</p>
+				<p>
+					是的，就是這樣簡單的想法，Vue.js出現了。<br>
+					以往我們想要控制網頁的布局時，我們第一個想到的是CSS。<br>
+					那麼如果我們想要控制網頁的內容的時候呢？就交給Vue吧！
+				</p>
+				<h3>還是好抽象啊？能舉個例子嗎！</h3>
+				<p>
+					就拿這個部落格來舉例吧，假設我想修改左上角的個人頭像，那麼我該怎麼做呢？<br>
+					<strong>「簡單啊，把HTML中頭像的src的路徑更新不就好了？」</strong><br>
+					是的，在一般的情況下，這樣是最快又簡單的作法，但問題是，如果今天有10個頁面都要做更新呢？<br>
+					沒有錯，我們就得去更新每一個HTML中的內容。<br>
+					雖然這是一種解決方式，但顯然並不是一個聰明的作法。
+				</p>
+				<p>
+					那麼，什麼才是聰明的做法？想想我們前面說的，「用CSS來管理網頁的樣式佈局」的邏輯，<br>
+					既然我們可以把網頁的樣式佈局抽出來用CSS統一管理，那同樣地，我們也<strong>把網頁的內容抽出來統一管理就好了呀！</strong><br>
+					這也就是Vue.js想達成的事情，雖然目前市面上並沒有設計出一個專門用來處理HTML資料的的工具，但幸運的是，我們有JavaScript。
+				</p>
+				<p>
+					相信各位都知道，JavaScript可以用來控制網頁中的內容，所以我們只要準備好想要呈現的資料，再用JavaScript去把資料給填入到HTML中，就可以做到我們所說的「統一管理」這件事。不過要是用原生的JavaScript來做這些事情，那光用想的也是一件大工程吧！<br>
+				</p>
+				<p>
+					不用擔心，現在Vue.js已經幫你做好這件事情了，我們只要照著Vue.js的操作方式來使用，就能夠做輕鬆做到統一管理資料這件事。不過還是要提醒各位，不論是什麼框架，它的本質並不會改變，就好比Vue.js，說穿了，它也還是用JavaScript寫出來的東西。
+				</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<h2>馬上來Vue一個頁面吧！</h2>
+				<!-- heading -->
+				<h3>Step1. 準備樣板（HTML頁面）</h3>
+				<p>
+					還記得我們提過Vue.js是一個樣板框架嗎？<br>
+					所以在我們使用它之前，我們要先準備好一個樣板，也就是HTML頁面，如下：
+					<!-- Code -->
+				<pre><code class="html">&lt;div id="app"&gt;
+	&lt;h1&gt;&lt;/h1&gt;
+	&lt;img&gt;
+	&lt;a&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">補充解說</p>
+					<p>
+						你可能發現我們並沒有在HTML中寫入任何的資料、甚至是屬性。<br>
+						這是因為資料的部分，待會兒我們會使用Vue來做處理，所以這裡的HTML就如我們所說的，它只是個「樣板」而已，
+					</p>
+				</div>
+				</p>
+				<!-- heading -->
+				<h3>Step2. 載入Vue.js</h3>
+				<p>載入Vue的方式有很多種，這裡提供給一個最簡單的方式，使用CDN來引入，你只需要在你的HTML中加入下面的程式碼即可：</p>
+				<!-- Code -->
+				<pre><code class="html">&lt;script src="https://unpkg.com/vue@3.0.11"&gt;&lt;/script&gt;
+// @後面代表的是Vue.js的版本，可以自行指定。</code></pre>
+				<p>（這只是其中一種方式，想了解更多可以參考<a
+						href="https://book.vue.tw/CH1/1-1-introduction.html#%E5%AE%89%E8%A3%9D%E8%88%87%E8%B5%B7%E6%AD%A5"
+						target="_blank"
+					>Vue.js</a>的官方說明
+				</p>
+				<h3>Step3. 建立Vue的物件實體</h3>
+				<p>建立好Vue之後，接著就能開始來撰寫需要的程式碼囉！</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">小提醒</p>
+					<p>
+						你可以建立一個新的.js外部檔案，或者是直接使用&lt;script&gt;標籤來撰寫程式碼
+					</p>
+				</div>
+				<p>讓我們先看看下面的程式碼：</p>
+				<!-- Code -->
+				<pre><code class="javascript">const vm = Vue.createApp({
+	data() {
+		return{
+			title: '標題',
+			srcPath: '路徑',
+			linkPath: '連結'
+		}
+	}
+});
+vm.mount('#app')</code></pre>
+				<p>
+					要使用Vue的第一件事情是要先建立出Vue的物件實體，所以你看到上面使用<code class="code">Vue.creatApp({...})</code>來建立一個Vue的物件實體，接著把它存入<code
+						class="code"
+					>vm</code>裡面。<br>
+					而<code class="code">({...})</code>中的內容就是我們想要設定的東西，<code
+						class="code">data()</code>的部分就是我們要提供給Vue.js儲存的<strong>資料</strong>，
+					<br>
+					最後的<code class="code">mount('#app')</code>，是代表要與Vue做連結的<strong>DOM（HTML元件）</strong>。
+				</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">補充說明</p>
+					<p>
+						<strong>const</strong>是在ES6規範下的一種新的變數宣告方式。他的特點是宣告時就必須指定一個值，且這個值之後不能在被改寫。
+					</p>
+					<p>
+						<strong>data( ) { ... } </strong>是在ES6規範下的一種新的物件方法撰寫方式。這只是一種更簡潔的寫法，但與以往的data : function( ) { .... }的意義是相同的。
+					</p>
+				</div>
+				<!-- heading -->
+				<h3>Step4. 把資料寫入到HTML中</h3>
+				<p>在Step2的時候，我們已經利用<code
+						class="code">mount('#app')</code>來把Vue與HTML元件做了連結，所以接著就可以使用<strong>Vue的標記方式</strong>，來把我們希望呈現的資料寫入到HTML中，如下：
+				</p>
+				<!-- Code -->
+				<pre><code class="html">&lt;div id="app"&gt;
+	&lt;h1&gt;<span v-pre>{{ title }}</span>&lt;/h1&gt;
+	&lt;img :src="src"&gt;
+	&lt;a :href="link"&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+				<p><code class="code"><span v-pre>{{title}}</span></code></p>
+				<p>
+					是指把Vue中的<code class="code">title</code>資料，寫到這個位置的意思。這裡使用的其實是雙花括<code
+						class="code"><span v-pre>{{ }}</span></code>的縮寫方式，實際上他原本的標記是長這個樣子：
+					<!-- Code -->
+				<pre><code class="html">&lt;h1 v-text="title"&gt;&lt;/h1&gt;</code></pre>
+				</p>
+				<p><code class="code">v-text</code>是透過<strong>屬性值</strong>的方式來從Vue中取得對應的資料。<br>
+					不論你想用<code class="code">v-text</code>或是<code class="code"><span v-pre>{{ }}</span></code>，兩者得到的結果都是相同的。
+				</p>
+				<!-- dialog-box -->
+				<div class="dialog-box warn">
+					<p class="dialog-title warn">注意</p>
+					<p>
+						<code class="code">v-text</code>的用途主要用來輸出<strong>純文字</strong>。如果現在想輸出的內容包含了HTML標籤，請改用Vue提供的另外一種方式：<code
+							class="code"
+						>v-html</code>來操作。如果你嘗試使用<code
+							class="code">v-text</code>來輸出HTML標籤，那標籤的部分將會自動被轉譯成「<strong>字符實體</strong>」。<br>
+						什麼是字符實體？就是把HTML標籤的部分轉譯成可以正常顯示的字符，這是<strong>為了防止被瀏覽器解析成HTML標籤</strong>。<br>
+						有點複雜？沒關係，總之你只要記得他就是會變成一串可以顯示的純文字就行了！
+					</p>
+				</div>
+				<p><code class="code">:src="src"</code> <code class="code">:href="href"</code></p>
+				<p>
+					事實上這也是一種縮寫的方式，是以「<code class="code">:</code>」來表示，原本的標記方式如下：
+					<!-- Code -->
+				<pre><code class="html">&lt;img v-bind:src="src"&gt;</code></pre>
+				</p>
+				<p><code class="code">v-bind:src</code>我們可以這樣子來解讀：</p>
+				<ul>
+					<li>要綁在哪一個HTML屬性？</li>
+					<li>要輸入的資料是？（Vue裏頭的什麼資料）</li>
+				</ul>
+				<p>
+					所以上面的意思就等同於告訴Vue ➝ 綁在<code class="code">&lt;img&gt;</code>的<code class="code">src</code>上，並且在裡面輸出Vue中的<code
+						class="code"
+					>src</code>資料
+				</p>
+			</article>
+		</div>
+		<!-- Footer -->
+		<footer class="footer">
+			<p>Hosted on <a
+					class="link"
+					href="#"
+				>Github</a></p>
+			<p>The code is open source and available at <a
+					class="link"
+					href="#"
+				>calpa/gatsby-starter-calpa-blog</a></p>
+			Copyright <a
+				class="link"
+				href="#"
+			>©Calpa</a> Calpa 的技術博客2021 Theme by Calpa Liu
+		</footer>
+	</div>
+
+
+
+
+
+
+	<!-- Vue -->
+	<script src="https://unpkg.com/vue@3.0.11"></script>
+	<script src="../js/article.js"></script>
+	<!-- JavaScript -->
+	<script src="../js/nav-burger.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+/*----------- header -----------*/
+.header {
+  /* box-sizing: border-box; */
+  padding-top: 68px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+}
+.header h1 {
+  font-size: 2.8rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/*----------- base -----------*/
+.hljs {
+  margin: 20px 0;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+.article-area h2,
+.article-area h3,
+.article-area h4,
+.article-area h5,
+.article-area h6 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.article-area h2 {
+  font-size: 2.4rem;
+}
+.article-area h3 {
+  font-size: 2rem;
+}
+.article-area h4 {
+  font-size: 1.8rem;
+}
+.article-area h5 {
+  font-size: 1.8rem;
+}
+.article-area h6 {
+  font-size: 1.8rem;
+}
+
+.article-area h2 {
+  padding-bottom: 5px;
+  border-bottom: 3px solid #eaecef;
+}
+.article-area h3 {
+  margin: 25px 0;
+  font-weight: 400;
+  color: #333;
+}
+
+.article-area p {
+  font-weight: 300;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+.article-area a {
+  color: rgb(0, 86, 179);
+}
+.article-area a:hover {
+  color: #bfbfbf;
+  text-decoration: underline;
+}
+
+.article-area strong {
+  font-weight: 600;
+}
+
+.article-area ul {
+  list-style-type: disc;
+  padding-left: 15px;
+  font-weight: 300;
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.article-area .code {
+  font-family: 'Source Code Pro';
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #476582;
+  padding: 4px 8px;
+  margin: 0;
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+}
+
+/*----------- layout adapt -----------*/
+.article-page-wrap {
+  margin: 10px auto 50px;
+}
+.article-page-wrap .article-area {
+  background-color: #fff;
+  padding: 30px 15px;
+}
+@media screen and (max-width: 768px) {
+  .article-page-wrap .article-area {
+    margin-top: 30px;
+  }
+}
+
+/*----------- article-page section -----------*/
+.dialog-box {
+  background-color: #f3f5f7;
+  border-left-width: 8px;
+  border-left-style: solid;
+  padding: 15px 25px;
+  margin-bottom: 15px;
+}
+.dialog-box .dialog-title {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.dialog-box p {
+  font-size: 1.6rem;
+  color: #444;
+  margin-bottom: 0;
+}
+.dialog-box p + p {
+  margin-top: 15px;
+}
+.dialog-box.note {
+  border-color: #42b983;
+}
+.dialog-box .dialog-title.note {
+  color: #158467;
+}
+.dialog-box.warn {
+  border-color: #ffb6b9;
+}
+.dialog-box .dialog-title.warn {
+  color: #f38181;
+}
