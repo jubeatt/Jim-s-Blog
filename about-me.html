@@ -119,7 +119,7 @@
 		<!-- Header -->
 		<header class="header">
 			<h1>關於作者</h1>
-			<time>2020/05/17</time>
+			<time>2021/05/17</time>
 		</header>
 		<!-- Main Content-->
 		<div class="wrap article-page-wrap">
@@ -163,23 +163,23 @@
 				<div class="latest-post">
 					<p>最新文章</p>
 					<ul class="latest-post-list">
-						<li><a :href="articles[0].link">{{ articles[0].title }}</a></li>
+						<li v-for="item in articles"><a :href="item.link">{{ item.title }}</a></li>
 					</ul>
 				</div>
 				<div class="other-link">
 					<p>前端部落格推薦</p>
 					<ul class="other-link-list">
-						<li><a :href="recommendBlogger[0].link">{{ recommendBlogger[0].name }}</a></li>
-						<li><a :href="recommendBlogger[1].link">{{ recommendBlogger[1].name }}</a></li>
-						<li><a :href="recommendBlogger[2].link">{{ recommendBlogger[2].name }}</a></li>
-						<li><a :href="recommendBlogger[3].link">{{ recommendBlogger[3].name }}</a></li>
+						<li v-for="item in recommendBlogger"><a :href="item.link">{{ item.name }}</a></li>
 					</ul>
 				</div>
 			</section>
 			<!-- articles -->
 			<article class="articles article-area">
 				<h2>關於Jim</h2>
-				<p>你好，我是 Jim，一個熱衷於程式設計的前端工程師。</p>
+				<p>
+					你好，我是 Jim，一個熱衷於程式設計的前端工程師。<br>
+					還記得自從家裡買了第一台電腦，接觸到電腦的世界後，就覺得電腦是一個特別厲害的東西，除了有各種好玩的遊戲以外，也有很多操控電腦來做各種事情的傢伙，<br>
+				</p>
 				<h2>為什麼開始寫部落格？</h2>
 				<h3>動機</h3>
 				<p>我相信每個人在學習前端的過程中，總會有面臨瓶頸的時候，我也不例外，</p>

@@ -134,32 +134,36 @@
         <div class="latest-post">
           <p>最新文章</p>
           <ul class="latest-post-list">
-            <li><a :href="articles[0].link">{{ articles[0].title }}</a></li>
+            <li v-for="item in articles"><a :href="item.link">{{ item.title }}</a></li>
           </ul>
         </div>
         <div class="other-link">
           <p>前端部落格推薦</p>
           <ul class="other-link-list">
-            <li><a :href="recommendBlogger[0].link">{{ recommendBlogger[0].name }}</a></li>
-            <li><a :href="recommendBlogger[1].link">{{ recommendBlogger[1].name }}</a></li>
-            <li><a :href="recommendBlogger[2].link">{{ recommendBlogger[2].name }}</a></li>
-            <li><a :href="recommendBlogger[3].link">{{ recommendBlogger[3].name }}</a></li>
+            <li v-for="item in recommendBlogger"><a
+                :href="item.link"
+                target="_blank"
+              >{{ item.name }}</a></li>
           </ul>
         </div>
       </section>
       <!-- articles -->
+
       <section class="articles">
         <h2 class="hide-heading">最新文章</h2>
-        <article class="article-item">
+        <article
+          class="article-item"
+          v-for="(item) in articles"
+        >
           <a
             class="thumbnail"
-            :href="articles[0].link"
+            :href="item.link"
           >
-            <img :src="articles[0].thumbnail">
+            <img :src="item.thumbnail">
           </a>
           <div class="content">
             <div>
-              <time class="date">{{ articles[0].date }}</time>
+              <time class="date">{{ item.date }}</time>
               <a
                 class="tags"
                 href="#"
@@ -172,26 +176,29 @@
             <div>
               <h3><a
                   class="title"
-                  :href="articles[0].link"
-                >{{ articles[0].title }}</a></h3>
-              <p class="txt">{{ articles[0].summary }}</p>
+                  :href="item.link"
+                >{{ item.title }}</a></h3>
+              <p class="txt">{{ item.summary }}</p>
               <a
                 class="read-more"
-                :href="articles[0].link"
-              >{{ articles[0].readMore }}</a>
+                :href="item.link"
+              >{{ item.readMore }}</a>
             </div>
           </div>
         </article>
 
+
+
+
         <div class="page-selector">
-          <a
+          <button
             class="btn btn-gray"
-            href="#"
-          >Previous</a>
-          <a
+            v-on:click="changePage(-5)"
+          >Previous</button>
+          <button
             class="btn"
-            href="#"
-          >Next</a>
+            v-on:click="changePage(5)"
+          >Next</button>
         </div>
       </section>
     </div>
@@ -211,6 +218,12 @@
       >©Calpa</a> Calpa 的技術博客2021 Theme by Calpa Liu
     </footer>
   </div>
+  <!-- jQuery -->
+  <script
+    src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js'
+    integrity='sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=='
+    crossorigin='anonymous'
+  ></script>
   <!-- Vue -->
   <script src="https://unpkg.com/vue@3.0.11"></script>
   <script src="js/app.js"></script>

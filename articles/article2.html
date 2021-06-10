@@ -66,7 +66,7 @@
 	<!-- article-picture -->
 	<style>
 		.header {
-			background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../images/thumbnail02.png");
+			background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../images/thumbnail01.png");
 		}
 	</style>
 	<!-- plug-in -->
@@ -167,17 +167,13 @@
 				<div class="latest-post">
 					<p>最新文章</p>
 					<ul class="latest-post-list">
-						<li><a :href="articles[0].link">{{ articles[0].title }}</a></li>
-						<li><a :href="articles[1].link">{{ articles[1].title }}</a></li>
+						<li v-for="item in articles"><a :href="item.link">{{ item.title }}</a></li>
 					</ul>
 				</div>
 				<div class="other-link">
 					<p>前端部落格推薦</p>
 					<ul class="other-link-list">
-						<li><a :href="recommendBlogger[0].link">{{ recommendBlogger[0].name }}</a></li>
-						<li><a :href="recommendBlogger[1].link">{{ recommendBlogger[1].name }}</a></li>
-						<li><a :href="recommendBlogger[2].link">{{ recommendBlogger[2].name }}</a></li>
-						<li><a :href="recommendBlogger[3].link">{{ recommendBlogger[3].name }}</a></li>
+						<li v-for="item in recommendBlogger"><a :href="item.link">{{ item.name }}</a></li>
 					</ul>
 				</div>
 			</section>
@@ -185,37 +181,23 @@
 			<article class="articles article-area">
 				<h2>前言</h2>
 				<p>
-					雖然自己目前的重心是以前端為主，不過回想起當初，讓我第一次接觸到程式語言的契機是我買了一本C語言，</p>
-				<h3>安裝方法</h3>
-				<p>你可以透過 ZEIT 官網提供 Now Desktop 安裝桌面應用。當你安裝的時候，你也一拼安裝命令行工具了。</p>
-				<h2>重新認識Vue.js</h2>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Quaerat laboriosam omnis veritatis, dolorem
-					doloribus, soluta, quod consequuntur dolores repellat necessitatibus, tenetur distinctio quisquam. Deserunt a
-					omnis consequuntur aliquam placeat repellendus nulla doloremque minima unde vitae aspernatur quidem quisquam
-					doloribus, facere harum saepe illo officiis. Recusandae optio, ducimus inventore consequatur? Molestiae.</p>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Quaerat laboriosam omnis veritatis, dolorem
-					doloribus, soluta, quod consequuntur dolores repellat necessitatibus, tenetur distinctio quisquam. Deserunt a
-					omnis consequuntur aliquam placeat repellendus nulla doloremque minima unde vitae aspernatur quidem quisquam
-					doloribus, facere harum saepe illo officiis. Recusandae optio, ducimus inventore consequatur? Molestiae.</p>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Quaerat laboriosam omnis veritatis, dolorem
-					doloribus, soluta, quod consequuntur dolores repellat necessitatibus, tenetur distinctio quisquam. Deserunt a
-					omnis consequuntur aliquam placeat repellendus nulla doloremque minima unde vitae aspernatur quidem quisquam
-					doloribus, facere harum saepe illo officiis. Recusandae optio, ducimus inventore consequatur? Molestiae.</p>
-				<h2>前言</h2>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Quaerat laboriosam omnis veritatis, dolorem
-					doloribus, soluta, quod consequuntur dolores repellat necessitatibus, tenetur distinctio quisquam. Deserunt a
-					omnis consequuntur aliquam placeat repellendus nulla doloremque minima unde vitae aspernatur quidem quisquam
-					doloribus, facere harum saepe illo officiis. Recusandae optio, ducimus inventore consequatur? Molestiae.</p>
-				<h2>前言</h2>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Quaerat laboriosam omnis veritatis, dolorem
-					doloribus, soluta, quod consequuntur dolores repellat necessitatibus, tenetur distinctio quisquam. Deserunt a
-					omnis consequuntur aliquam placeat repellendus nulla doloremque minima unde vitae aspernatur quidem quisquam
-					doloribus, facere harum saepe illo officiis. Recusandae optio, ducimus inventore consequatur? Molestiae.</p>
-				<h2>前言</h2>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Quaerat laboriosam omnis veritatis, dolorem
-					doloribus, soluta, quod consequuntur dolores repellat necessitatibus, tenetur distinctio quisquam. Deserunt a
-					omnis consequuntur aliquam placeat repellendus nulla doloremque minima unde vitae aspernatur quidem quisquam
-					doloribus, facere harum saepe illo officiis. Recusandae optio, ducimus inventore consequatur? Molestiae.</p>
+					相信讀完第一篇的你對於Vue應該有一些基本的了解，所以接著讓我們進到下個階段吧！<br>
+					今天我們要談的是「事件」與「條件判斷」，相信學過JavaScript的人應該都對這兩個名詞不陌生，<br>
+					「事件」是網頁中很重要的一個元素，透過事件可以讓我們的網頁與使用者之間產生出互動，<br>
+					「條件判斷」也是另外一個很重要元素，透過條件判斷可以讓我們決定在哪些情況下該做什麼事。
+				</p>
+				<h2>筆記一</h2>
+				<ul>
+					<li>多筆資料的格式，可以用陣列+物件的方式來做儲存（或者顛倒過來）</li>
+					<li>
+						Computed是把計算的結果給Cache（暫存）起來，所以在一般情況下，他只會運算一次，只有在this的資料有做變動的情況下，Computed才會重新計算的。所以如果只需要做一次運算的值，我們可以用Computed來Return求值，就有點變數的味道。（不過要注意，Computed是不能帶入參數的，需要參數時得用Method）
+					</li>
+					<li>Method就等同於Function的概念，每呼叫他一次，Method就會被執行一次，這也是與Computed最大的不同之處</li>
+					<li>利用取餘數的概念來做輪播</li>
+					<li>綁定事件的標記是「v-on:event="function()"，綁誰身上？(who)綁什麼事件(when)？觸發事件時做什麼？(what)</li>
+					<li>條件判斷的標記是「v-if="判斷條件"」，True的時候，元件顯示、False則消失。</li>
+					<li>在Vue的實體中使用的this都代表指向「Vue」這個物件</li>
+				</ul>
 				<!-- Code -->
 				<pre><code class="html javascript">&lt;script&gt;
 		function hello(){

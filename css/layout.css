@@ -33,8 +33,9 @@ p {
   justify-content: space-between;
   align-items: flex-start;
   width: 70%;
-  margin: 90px auto 50px;
+  margin: 20px auto 50px;
   box-sizing: border-box;
+  scroll-behavior
 }
 .wrap .author {
   flex-basis: 20%;
@@ -70,9 +71,9 @@ p {
 
 /*----------- navigation -----------*/
 .main-nav {
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
-  left: 0;
   z-index: 2;
   width: 100%;
   box-shadow: 0 0 10px rgb(14 14 14 / 26%);
@@ -146,10 +147,22 @@ p {
   width: 100%;
 }
 .github:hover img {
+  -webkit-animation-name: shake;
   animation-name: shake;
+  -webkit-animation-duration: 0.09s;
   animation-duration: 0.09s;
+  -webkit-animation-iteration-count: 4;
   animation-iteration-count: 4;
+  -webkit-animation-direction: alternate;
   animation-direction: alternate;
+}
+@-webkit-keyframes shake {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
 }
 @keyframes shake {
   0% {
@@ -443,6 +456,7 @@ p {
   border: 1px solid #d7d7d7;
   border-radius: 3px;
   color: #66ccff;
+  cursor: pointer;
 }
 .page-selector .btn-gray {
   color: #7d7d7d;

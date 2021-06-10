@@ -167,16 +167,13 @@
 				<div class="latest-post">
 					<p>最新文章</p>
 					<ul class="latest-post-list">
-						<li><a :href="articles[0].link">{{ articles[0].title }}</a></li>
+						<li v-for="item in articles"><a :href="item.link">{{ item.title }}</a></li>
 					</ul>
 				</div>
 				<div class="other-link">
 					<p>前端部落格推薦</p>
 					<ul class="other-link-list">
-						<li><a :href="recommendBlogger[0].link">{{ recommendBlogger[0].name }}</a></li>
-						<li><a :href="recommendBlogger[1].link">{{ recommendBlogger[1].name }}</a></li>
-						<li><a :href="recommendBlogger[2].link">{{ recommendBlogger[2].name }}</a></li>
-						<li><a :href="recommendBlogger[3].link">{{ recommendBlogger[3].name }}</a></li>
+						<li v-for="item in recommendBlogger"><a :href="item.link">{{ item.name }}</a></li>
 					</ul>
 				</div>
 			</section>
@@ -186,7 +183,20 @@
 				<p>
 					作為一名前端開發者，除了摸索基礎的程式知識以外，如何提升開發效率也是件很重要的課題。<br>
 					因此目前正在學習JavaScript框架的使用方式，也打算將此做為一個主題來做教學，<br>希望透過分享自己的學習紀錄，讓各位讀者能夠一起與我一起探索Vue.js是什麼玩意兒呢？</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">友情提示</p>
+					<p>
+						Vue.js是一個JavaScript的前端框架，也就是說，Vue.js是基於於JavsScript來建立出的一種工具，所以對於JavaScript不是很熟悉的小夥伴們，建議先回頭去了解一些基本概念哦！
+					</p>
+					<p>
+						本系列文章是以Vue3.0以後的版本來做為教學，所以若是曾經學過Vue2.0的小夥伴們，可能要注意一下，有些的地方可能與你學過的不太一樣。<br>
+					</p>
+					<p>
+						本系列的文章的目標對象是以「第一次接觸學習前端框架的人」為主，所以文章的撰寫風格是以Step by Step的方式來說明，所以如果感覺廢話有點多的話，還請見諒一下XD
+					</p>
 
+				</div>
 
 
 
@@ -263,14 +273,15 @@
 				<pre><code class="html">&lt;div id="app"&gt;
 	&lt;h1&gt;&lt;/h1&gt;
 	&lt;img&gt;
-	&lt;a&gt;&lt;/a&gt;
+	&lt;a&gt;連結&lt;/a&gt;
 &lt;/div&gt;</code></pre>
 				<!-- dialog-box -->
 				<div class="dialog-box note">
-					<p class="dialog-title note">補充解說</p>
+					<p class="dialog-title note">補充說明</p>
 					<p>
-						你可能發現我們並沒有在HTML中寫入任何的資料、甚至是屬性。<br>
-						這是因為資料的部分，待會兒我們會使用Vue來做處理，所以這裡的HTML就如我們所說的，它只是個「樣板」而已，
+						注意到我們並沒有在HTML中寫入任何的資料、甚至是屬性。（除了a標籤）<br>
+						這是因為資料的部分我們會使用Vue來做處理，所以目前的HTML不需要填入任何資料。<br>
+						就像前面說過的，HTML的角色只是一個「樣板」。
 					</p>
 				</div>
 				</p>
@@ -333,8 +344,8 @@ vm.mount('#app')</code></pre>
 				<!-- Code -->
 				<pre><code class="html">&lt;div id="app"&gt;
 	&lt;h1&gt;<span v-pre>{{ title }}</span>&lt;/h1&gt;
-	&lt;img :src="src"&gt;
-	&lt;a :href="link"&gt;&lt;/a&gt;
+	&lt;img :src="srcPath"&gt;
+	&lt;a :href="linkPath"&gt;連結&lt;/a&gt;
 &lt;/div&gt;</code></pre>
 				<p><code class="code"><span v-pre>{{title}}</span></code></p>
 				<p>
@@ -362,7 +373,7 @@ vm.mount('#app')</code></pre>
 				<p>
 					事實上這也是一種縮寫的方式，是以「<code class="code">:</code>」來表示，原本的標記方式如下：
 					<!-- Code -->
-				<pre><code class="html">&lt;img v-bind:src="src"&gt;</code></pre>
+				<pre><code class="html">&lt;img v-bind:src="srcPath"&gt;</code></pre>
 				</p>
 				<p><code class="code">v-bind:src</code>我們可以這樣子來解讀：</p>
 				<ul>
@@ -374,6 +385,45 @@ vm.mount('#app')</code></pre>
 						class="code"
 					>src</code>資料
 				</p>
+				<!-- heading -->
+				<h3>Step5. 輸出結果</h3>
+				<p>完成上面的步驟後，你就得到你的第一個Vue頁面啦！（範例連結：<a
+						:href="articles[0].exampleLink"
+						target="_blank"
+					>這裡</a>）</p>
+				<figure>
+					<img src="images/article1-01.jpg">
+					<figcaption>好餓rrrrr</figcaption>
+				</figure>
+				<p>是不是輕輕鬆鬆呢？而且當未來想要更新資料的時候，只需要到Vue中去做更改就可以了，不用像以往還要到HTML中去做修改，當資料量越龐大的時候，就越能感受到Vue的強大之處哦！
+				</p>
+
+
+
+
+
+
+
+
+				<h2>結尾</h2>
+				<p>最後來複習一下剛剛所學到的吧！</p>
+				<h3>Vue.js的部分</h3>
+				<ul>
+					<li><code class="code">Vue.creatApp({...}</code>是用來建立Vue的物件實體</li>
+					<li><code class="code">data() {return {....}}</code>是用來儲存我們的資料</li>
+					<li><code class="code">.mount("selector")</code>是告訴Vue要把資料綁在哪一個HTML元件上</li>
+				</ul>
+				<h3>HTML的部分</h3>
+				<ul>
+					<li><code class="code"><span v-pre>{{ }}</span></code>是<code
+							class="code">v-text</code>的縮寫，它是用來把Vue的資料以純文字的方式來輸出</li>
+					<li><code class="code">:</code>是<code class="code">v-bind:</code>的縮寫，它是用來把Vue的資料指定給HTML的屬性</li>
+				</ul>
+				<p>
+					最後，謝謝看完這篇文章的各位，這是我第一次嘗試寫出來的文章，雖然可能文筆或用詞不是很好，但我還是希望盡可能的將我所學到的知識傳達給各位。<br>
+					如果過程中有感覺到困難或複雜的地方，也希望各位不要灰心，能夠去嘗試各種方法或是搜索相關知識，試著找出解答。<br>
+					每個人在學習一樣新的事物的時候，總會有遇到困難的時候，我也與各位一樣，會有腦袋短路的時候，不過只要好好地堅持下去，相信久而久之問題總會銀刃而解的，累積的經驗與知識也會一點一滴的儲存到腦海裡，所以這裡也鼓勵各位，如果有任何的問題，都歡迎你提出，我們都能一起交流討論。<br>
+					不要忘了，努力學習的你並不孤單，一路上都有我陪伴著！</p>
 			</article>
 		</div>
 		<!-- Footer -->

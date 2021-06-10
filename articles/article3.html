@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	id="page"
+>
+
+<head>
+	<meta charset="UTF-8">
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0"
+	>
+	<meta
+		name="description"
+		content="Jim的學習筆記，用來記錄學習或是開發中所碰到的困難"
+	>
+	<meta
+		name="keyword"
+		content="Jim, 前端魚池, HTML, CSS, JavaScript"
+	>
+	<title>Jim's Blog - 前端魚池</title>
+	<!-- home icon -->
+	<link
+		rel="apple-touch-icon"
+		href="apple-touch-icon.png"
+	>
+	<link
+		rel="icon"
+		sizes="192x192"
+		href="apple-touch-icon.png"
+	>
+	<!-- fontawesome -->
+	<link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+		integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+		crossorigin="anonymous"
+	/>
+	<!-- google-font -->
+	<link
+		rel="preconnect"
+		href="https://fonts.gstatic.com"
+	>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+		rel="stylesheet"
+	>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
+		rel="stylesheet"
+	>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;400;500;600;700;900&display=swap"
+		rel="stylesheet"
+	>
+	<!-- stylesheet -->
+	<link
+		rel="stylesheet"
+		href="../css/reset.css"
+	>
+	<link
+		rel="stylesheet"
+		href="../css/layout.css"
+	>
+	<link
+		rel="stylesheet"
+		href="../css/article.css"
+	>
+	<!-- article-picture -->
+	<style>
+		.header {
+			background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../images/thumbnail03.jpg");
+		}
+	</style>
+	<!-- plug-in -->
+	<link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/atom-one-dark.min.css"
+	>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+	<script>
+		hljs.highlightAll();
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/code-line"></script>
+	<script>
+		CodeLine.initOnPageLoad({
+			minLine: 0,
+		})
+	</script>
+</head>
+
+<body id="body">
+
+
+	<div id="app">
+		<h1 class="hide-heading">Jim's Blog - 前端魚池</h1>
+		<!-- Navigation -->
+		<nav class="main-nav">
+			<div class="container">
+				<a
+					class="logo"
+					:href="links.homePage"
+				><span>{{user.name}}</span>'s Blog</a>
+				<button
+					class="menu-btn"
+					id="menuBtn"
+				>
+					<span class="burger"></span>
+				</button>
+				<ul
+					class="main-nav-list"
+					id="menuList"
+				>
+					<li><a href="#">文章列表</a></li>
+					<li><a href="#">文章分類</a></li>
+					<li><a href="#">Tags</a></li>
+					<li><a :href="links.aboutPage">關於作者</a></li>
+				</ul>
+				<a
+					class="github"
+					:href="links.github"
+					target="_blank"
+				><img src="../images/github.png"></a>
+				</span>
+		</nav>
+		<!-- Header -->
+		<header class="header">
+			<h1>{{ articles[0].title }}</h1>
+			<time>{{ articles[0].date }}</time>
+		</header>
+		<!-- Main Content-->
+		<div class="wrap article-page-wrap">
+			<!-- Author -->
+			<section class="author">
+				<div class="info">
+					<a
+						class="avatar"
+						:href="links.aboutPage"
+					><img :src="user.avatar"></a>
+					<p><a
+							class="link"
+							:href="links.aboutPage"
+						>{{ user.name }}</a></p>
+					<p>{{ user.skill }}</p>
+					<p>{{ user.memo }}</p>
+					<div class="social-media">
+						<a
+							:href="links.github"
+							target="_blank"
+						><i
+								class="fa fa-github"
+								aria-hidden="true"
+							></i></i></a>
+						<a :href="links.email"><i
+								class="fa fa-envelope-o"
+								aria-hidden="true"
+							></i></a>
+						<a
+							:href="links.facebook"
+							target="_blank"
+						><i
+								class="fa fa-facebook-square"
+								aria-hidden="true"
+							></i></a>
+					</div>
+				</div>
+				<div class="total-post">
+					<p>共{{ countTotalPost }}篇文章</p>
+				</div>
+				<div class="latest-post">
+					<p>最新文章</p>
+					<ul class="latest-post-list">
+						<li v-for="item in articles"><a :href="item.link">{{ item.title }}</a></li>
+					</ul>
+				</div>
+				<div class="other-link">
+					<p>前端部落格推薦</p>
+					<ul class="other-link-list">
+						<li v-for="item in recommendBlogger"><a :href="item.link">{{ item.name }}</a></li>
+					</ul>
+				</div>
+			</section>
+			<!-- articles -->
+			<article class="articles article-area">
+				<h2>前言</h2>
+				<p>
+					寫這篇文章的用意很簡單，我們都知道Array是一個全域物件，所以可以使用的Method也非常的多，不過要一次記下全部似乎有點困難？<br>
+					所以就寫一篇文章來當作給自己練習，也當作是一種分享與紀錄！
+				</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">友情提醒</p>
+					<p>由於範例中有使用到ES6的撰寫方式，所以在這裡先全部列出，給對ES6不熟的夥伴們一些關於ES6的基本知識</p>
+					<p>
+						<strong>( ) => xxxxx </strong>是在ES6中定義的<strong>「箭頭函式」</strong>，他是一種函式的撰寫方式
+					</p>
+					<p><strong>`xxx ${var / expression}`</strong>是在ES6中定義的<strong>「Template
+							literals（樣板字面值）」</strong>的一種字串混運算式的撰寫方式</p>
+				</div>
+				<div class="dialog-box warn">
+					<p class="dialog-title warn">關於箭頭函式</p>
+					<p>
+						由於自己常被箭頭函式雷到，所以在這裡先點出來給各位了解一下，<br>
+						範例中大部分的箭頭函式寫法是採用<strong>( ) => xxx 的縮寫方式</strong>，<br>
+						要注意，<strong>=> xxxx</strong> 其實是有自動帶入<strong>「return」</strong>這個關鍵字的<br>
+					</p>
+					<p>
+						所以如果你的寫法是像這樣<strong> ( ) =>{ xxx }</strong>，或是這樣<strong> function( ) { xxx }</strong>，<br>
+						<strong>請務必記得要加上return</strong><br>
+						<strong>請務必記得要加上return</strong><br>
+						<strong>請務必記得要加上return</strong><br>
+						否則可能會出現讓你找了半天都找不出原因的錯誤，就醬！
+					</p>
+				</div>
+
+
+
+
+
+
+
+
+
+				<h2>索引列</h2>
+				<ul id="anchors">
+					<li><a
+							href="#filter"
+							class="anchor"
+							data-name="filter"
+						>Array.prototype.filter( )</a></li>
+					<li><a
+							href="#includes"
+							class="anchor"
+						>Array.prototype.includes( )</a></li>
+					<li><a
+							href="#indexOf"
+							class="anchor"
+						>Array.prototype.indexOf( )</a></li>
+					<li><a
+							href="#forEach"
+							class="anchor"
+						>Array.prototype.forEach()</a></li>
+					<li><a
+							href="#find"
+							class="anchor"
+						>Array.prototype.find( )</a></li>
+					<li><a
+							href="#findIndex"
+							class="anchor"
+						>Array.prototype.findIndex( )</a></li>
+					<li><a
+							href="#map"
+							class="anchor"
+						>Array.prototype.map( )</a></li>
+					<li><a
+							href="#reduce"
+							class="anchor"
+						>Array.prototype.reduce( )</a></li>
+					<li><a
+							href="#splice"
+							class="anchor"
+						>Array.prototype.splice( )</a></li>
+					<li><a
+							href="#from"
+							class="anchor"
+						>Array.from( )</a></li>
+				</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<h2 id="filter">Array.prototype.filter( )</h2>
+
+				<!-- heading -->
+				<h3>語法：array.filter(callback(element, [index], [array]), [thisArg])</h3>
+				<h3>作用：透過函式的運算來過濾出要留下的陣列元素</h3>
+				<p><strong>回傳值：</strong>由通過檢驗的元素所集合成的一個新的陣列</p>
+				<p><strong>callback：</strong>該function會對陣列中每一個元素做檢驗</p>
+				<p><strong>element：</strong>原陣列迭代處理的元素</p>
+				<p><strong>[index]：</strong>原陣列迭代處理元素的index值</p>
+				<p><strong>[array]：</strong>呼叫filter( )的陣列</p>
+				<p><strong>[thisArg]：</strong>設定callback中this值的參考值（指向哪個物件）</p>
+				<h3>範例</h3>
+				<!-- Code -->
+				<pre><code class="javascript">// 建立一個陣列
+const words = ['Star', 'Moon', 'Dog', 'Calendar', 'Vegetable']  
+// 從原陣列中篩選出字串長度 > 4 的元素
+const newArr = words.filter((element) => element.length > 4)
+// 輸出結果：["Calendar", "Vegetable"]
+console.log(newArr)</code></pre>
+
+
+				<h2 id="includes">Array.prototype.includes( )</h2>
+				<h3>語法：array.includes(element, [fromIndex]) (別忘了s)</h3>
+				<h3>作用：檢查陣列中是否包含指定的元素</h3>
+				<p><strong>回傳值：</strong>True / False</p>
+				<p><strong>element：</strong>輸入一個值，用來查詢該值是否包含在陣列中</p>
+				<!-- dialog-box -->
+				<div class="dialog-box warn">
+					<p class="dialog-title warn">注意</p>
+					<p>includes( )是採用<strong>嚴格相等( === )</strong>的方式來做比較</p>
+				</div>
+				<p><strong>[fromIndex]：</strong>輸入一個數值，表示要從陣列的哪一個索引值作為初始位置開始搜索（第一個的位置是0）</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">補充說明</p>
+					<p>如果輸入值為負數，則會從array.length + n開始搜索（等同於從倒數地n個開始向後搜索）</p>
+					<p>若輸入值 > 陣列長度，則會直接回傳False，就不會搜索陣列</p>
+					<p>若經過計算後的數值 < 0，則index會被設為0，整個陣列都會被搜索</p>
+				</div>
+				<h3>範例</h3>
+				<!-- Code -->
+				<pre><code class="javascript">// 建立一個陣列
+const animals = ['Cat', 'Dog', 'Fox', 'Hippo', 'Elephant', '1']
+// 檢查陣列中是否包含字串"Cat"
+const checkCat = animals.includes('Cat')
+// 檢查陣列中是否包含字串"Do"
+const checkDo = animals.includes('Do')
+// 檢查陣列中是否包含整數 1
+const checkNum = animals.includes(1)
+// 輸出結果：true
+console.log(checkCat)
+// 輸出結果：false
+console.log(checkDo)
+// 輸出結果：false (整數1 != 字串1)
+console.log(checkNum)</code></pre>
+
+
+
+
+
+
+
+
+
+				<h2 id="indexOf">Array.prototype.indexOf( )</h2>
+				<h3>語法：array.indexOf(element, [fromIndex])</h3>
+				<h3>用途：搜尋一個元素在陣列中的索引值</h3>
+				<p><strong>回傳值：</strong>第一個被找到的元素的索引值 / 不存在則回傳「-1」</p>
+				<p><strong>element：</strong>輸入想取得索引值的元素（不可以一次輸入多個元素）</p>
+				<!-- dialog-box -->
+				<div class="dialog-box warn">
+					<p class="dialog-title warn">注意</p>
+					<p>indexOf( )是採用<strong>嚴格相等( === )</strong>的方式來做比較</p>
+				</div>
+				<p><strong>[fromIndex]：</strong>輸入一個數值，表示要從陣列的哪一個索引值作為初始位置開始搜索（第一個的位置是0）</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">補充說明</p>
+					<p>如果輸入值為負數，則會從array.length + n開始搜索（等同於從倒數地n個開始向後搜索）</p>
+					<p>若輸入值 > 陣列長度，則會直接回傳False，就不會搜索陣列</p>
+					<p>若經過計算後的數值 < 0，則index會被設為0，整個陣列都會被搜索</p>
+				</div>
+				<h3>範例</h3>
+				<!-- Code -->
+				<pre><code class="javascript">// 建立一個陣列
+const animals = ['Cat', 'Dog', 'Fox', 'Hippo', 'Elephant']
+// 查詢字串"Cat"的索引值
+const findIndex =  animals.indexOf('Cat')
+// 查詢字串"Do"的索引值
+const findDoIndex =  animals.indexOf('Do')
+// 輸出結果：0
+console.log(findIndex)
+// 輸出結果：-1
+console.log(findDoIndex)</code></pre>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">小提醒</p>
+					<p><strong>String物件</strong>也有一個叫做indexOf的方法，與Array的indexOf功能大致相同，但不要像我一樣不小心搞混，而搞了個大烏龍QQ</p>
+				</div>
+
+
+
+
+
+				<h2 id="forEach">Array.prototype.forEach( )</h2>
+				<h3>語法：array.forEach(callback(element, [index], [array]), [thisArg])</h3>
+				<h3>用途：將陣列中的每一個元素傳入到callback中執行一段處理</h3>
+				<p><strong>回傳值：</strong>無</p>
+				<p><strong>callback：</strong>對陣列中的每一個元素做一段處理</p>
+				<p><strong>element：</strong>原陣列迭代處理的元素</p>
+				<p><strong>[index]：</strong>原陣列迭代處理元素的index值</p>
+				<p><strong>[array]：</strong>呼叫forEach( )的陣列</p>
+				<p><strong>[thisArg]：</strong>設定callback中this值的參考值（指向哪個物件）</p>
+				<h3>範例</h3>
+				<!-- Code -->
+				<pre><code class="javascript">// 建立一個陣列
+const food = ['beef', 'fish', 'potato', 'tomato']
+// 印出陣列中的每個元素及對應的索引值
+food.forEach((element, index) => console.log(`${index} ${element}`))
+// 輸出結果：
+// "0 beef" 
+// "1 fish"
+// "2 potato"
+// "3 tomato"</code></pre>
+
+
+
+
+				<h2 id="find">Array.prototype.find( )</h2>
+				<h3>語法：array.find(callback(element, [index], [array], [thisArg]))</h3>
+				<h3>用途：從陣列中找出符合callback函式檢測的元素值</h3>
+				<p><strong>回傳值：</strong>第一個通過函式檢測的元素值 / undefined</p>
+				<p><strong>callback：</strong>對陣列中的每一個元素做檢測</p>
+				<p><strong>element：</strong>原陣列迭代處理的元素</p>
+				<p><strong>[index]：</strong>原陣列迭代處理元素的index值</p>
+				<p><strong>[array]：</strong>呼叫forEach( )的陣列</p>
+				<p><strong>[thisArg]：</strong>設定callback中this值的參考值（指向哪個物件）</p>
+				<h3>範例</h3>
+				<!-- Code -->
+				<pre><code class="javascript">// 建立整數陣列
+const numbers = [10, 20, 30, 40, 50]
+// 建立字串陣列
+const strings = ['10', '20', '30', '40', '50']
+// 從整數陣列找出 > 整數15的元素
+const findNumber = numbers.find((element) => element > 15)
+// 從字串陣列找出 > 整數15的元素
+const findString = strings.find((element) => element > 15)
+// 從整數陣列找出 = 整數0的元素
+const findZero = numbers.find((element) => element = 0)
+// 輸出結果：20
+console.log(findNumber)
+// 輸出結果："20"
+console.log(findString)
+// 輸出結果：undefined
+console.log(findZero)</code></pre>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">小提醒</p>
+					<p>範例中故意多寫了一個字串陣列，並帶入函式中做檢測，這是為了要提醒各位JavaScript會做<strong>「資料轉型」</strong>，這件事情，所以在做比較時，別忘了注意資料型態的問題！</p>
+				</div>
+
+
+
+
+				<h2 id="findIndex">Array.prototype.findIndex( )</h2>
+				<h3>語法：array.find(callback(element, [index], [array]), [thisArg])</h3>
+				<h3>用途：find( )方法一樣，唯一的差異在於回傳值</h3>
+				<p><strong>回傳值：</strong>第一個通過函式檢測元素的索引值 / -1</p>
+				<p><strong>callback：</strong>對陣列中的每一個元素做檢測</p>
+				<p><strong>element：</strong>原陣列迭代處理的元素</p>
+				<p><strong>[index]：</strong>原陣列迭代處理元素的index值</p>
+				<p><strong>[array]：</strong>呼叫forEach( )的陣列</p>
+				<p><strong>[thisArg]：</strong>設定callback中this值的參考值（指向哪個物件）</p>
+				<!-- Code -->
+				<pre><code class="javascript">// 建立陣列
+const numbers = [0, 10, 20, 30, 40, 50]
+// 從陣列找出 > 整數15的元素
+const findNumber = numbers.findIndex((element) => element > 15)
+// 從陣列找出 < 整數0的元素
+const findZero = numbers.findIndex((element) => element < 0)
+// 輸出結果：2
+console.log(findNumber)
+// 輸出結果：-1
+console.log(findZero)</code></pre>
+
+
+
+
+				<h2 id="map">Array.prototype.map( )</h2>
+				<h3>語法：array.map(callback(element, [index], [array]), [thisArg])</h3>
+				<h3>用途：將陣列中的每一個元素傳入到callback中執行一段處理</h3>
+				<p><strong>回傳值：</strong>經過callback運算處理後的新陣列</p>
+				<p><strong>callback：</strong>對陣列中的每一個元素做一段處理</p>
+				<p><strong>element：</strong>原陣列迭代處理的元素</p>
+				<p><strong>[index]：</strong>原陣列迭代處理元素的index值</p>
+				<p><strong>[array]：</strong>呼叫forEach( )的陣列</p>
+				<p><strong>[thisArg]：</strong>設定callback中this值的參考值（指向哪個物件）</p>
+				<h3>範例</h3>
+				<!-- Code -->
+				<pre><code class="javascript">// 建立陣列
+const numbers = [2, 4, 6, 8, 10]
+// 執行map方法（對陣列中每個元素 x 2）
+const doubleNumbers = numbers.map((element) => element * 2)
+// 印出經過運算後的新陣列
+console.log(doubleNumbers)
+// 輸出結果：[4, 8, 12, 16, 20]</code></pre>
+
+
+
+
+				<h2 id="reduce">Array.prototype.reduce( )</h2>
+				<h3>語法：array.reduce(callback(accumulator, currentValue, [currentIndex], [array] ), [initialValue] )</h3>
+				<h3>用途：對陣列中的元素做累加/減/乘/除/模，或試圖運算成一個單一值</h3>
+				<p><strong>回傳值：</strong>經過運算後得出的結果值</p>
+				<p><strong>callback：</strong>對陣列中的每一個元素做一段處理</p>
+				<p><strong>accumulator（累加器）：</strong>回傳callback在上一次累加所回傳的數字</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">累加器的初始值是？</p>
+					<p>
+						如果有設定[initialValue]的話，累加器的初始值 = [initialValue] 設定的值<br>
+						如果沒有設定[initialValue] = 直接把第一個元素拿來當作累加器（所以第一次迭代時的currentValue就會變成第二個元素）
+					</p>
+				</div>
+				<p><strong>currentValue：</strong>目前迭代處理中的元素</p>
+				<p><strong>[currentIndex]：</strong>目前迭代處理中的元素索引值</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">小提醒</p>
+					<p>
+						如果沒有設定[initialValue] 的值，會從「索引值1」的元素開始回傳（因為第一個元素會被拿去當作accumulator（累加器），反之則從「索引值0」的元素開始回傳
+					</p>
+				</div>
+				<p><strong>[array]：</strong>呼叫這個方法的array</p>
+				<p><strong>[initialValue]：</strong>設定callback中累加器的初始值（(accumulator參數）</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">小提醒</p>
+					<p>它是reduce()中的參數，不是callback中的參數</p>
+					<p>如果一個空陣列使用reduce()，但沒有設定[initialValue]的值，則會發生錯誤</p>
+				</div>
+
+
+
+
+
+				<h3>範例（如果陣列中包含字串資料）</h3>
+				<!-- Code -->
+				<pre><code class="javascript">// 建立整數陣列
+const numbers = [2, 4, 6, 8, 10]
+// 建立包含字串與整數的陣列
+const mixture = ['2', 4, 6, 8, 10 ]
+
+// 使用reduce()累加陣列元素的值
+const sumOfNumbers = numbers.reduce((accumulator, currentValue) => accumulator + currentValue)
+// 使用reduce()累加陣列元素的值
+const sumOfMixture = mixture.reduce((accumulator, currentValue) => accumulator + currentValue)
+// 設定累加器的初值
+const diffSumOfNumbers = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 5)
+
+
+// 輸出結果：30
+console.log(sumOfNumbers)
+// 輸出結果：'246810'
+console.log(sumOfMixture)
+// 輸出結果：35
+console.log(diffSumOfNumbers)</code></pre>
+
+				<h3>範例（有無設定initialValue的差異）</h3>
+				<pre><code class="javascript">// 建立陣列
+const numbers = [1, 2, 3, 4, 5]
+// 使用reduce中的callback印出每一次迭代中累加處理的過程
+const result = numbers.reduce((accumulator, currentValue, currentIndex) => {
+	console.log(`accumulator(${accumulator}) + currentValue(${currentValue}) = ${accumulator + currentValue}`)
+	return accumulator + currentValue
+})
+// 註：可以看到沒有設定[initialValue]時，accumulator的值是將陣列的第一個元素來作為初始值
+// 以下為每一次迭代處理的結果：
+// "accumulator(1) + currentValue(2) = 3"
+// "accumulator(3) + currentValue(3) = 6"
+// "accumulator(6) + currentValue(4) = 10"
+// "accumulator(10) + currentValue(5) = 15"
+
+// 印出reduce的回傳值
+console.log(result)
+// 輸出結果：15</code></pre>
+
+				<h3>範例（有無設定initialValue的差異）</h3>
+				<pre><code class="javascript">// 建立陣列
+const numbers = [1, 2, 3, 4, 5]
+// 使用reduce中的callback印出每一次迭代中累加處理的過程
+const result = numbers.reduce((accumulator, currentValue, currentIndex) => {
+	console.log(`accumulator(${accumulator}) + currentValue(${currentValue}) = ${accumulator + currentValue}`)
+	return accumulator + currentValue
+}, 5) // 設定[initialValue]的值為5
+
+// 註：可以看到有設定[initialValue]時，accumulator的值是以[initialValue]來作為初始值
+// 以下為每一次迭代處理的結果：
+// "accumulator(5) + currentValue(1) = 6"
+// "accumulator(6) + currentValue(2) = 8"
+// "accumulator(8) + currentValue(3) = 11"
+// "accumulator(11) + currentValue(4) = 15"
+// "accumulator(15) + currentValue(5) = 20"
+
+// 印出reduce的回傳值
+console.log(result)
+// 輸出結果：20</code></pre>
+
+
+				<h2 id="splice">Array.prototype.splice( )</h2>
+				<h3>語法：array.splice(start, [deleteCount], [item1], [item2], [itemN]...)</h3>
+				<h3>用途：在陣列的指定位置刪除/新增元素</h3>
+				<p><strong>回傳值：</strong>由被刪除的元素所組成的一個新陣列</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">小提醒</p>
+					<p>如果你的[deleteCount]的值為0 / 負數，回傳值會得到一個「空陣列」</p>
+				</div>
+				<p><strong>start：</strong>設定起始點（索引值）</p>
+				<p><strong>[deleteCount]：</strong>要刪除的元素數量（包含start自己，並向後計算）</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">小提醒</p>
+					<p>如果省略 / 值超過start後面的剩餘元素數量，start後的所有元素都會被刪除</p>
+					<p>若值為0 / 負數 -> 則不會有元素被刪除</p>
+				</div>
+				<p><strong>[items]：</strong>在start的前方（不是後方），加入的新元素</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">小提醒</p>
+					<p>如果沒有設定該參數，則只會按照start與[deleteCount]的設定去刪除元素</p>
+				</div>
+				<!-- dialog-box -->
+				<div class="dialog-box warn">
+					<p class="dialog-title warn">注意</p>
+					<p>splice( )方法會直接<strong>「對原陣列產生作用」</strong></p>
+					<p>除非你希望的是取得的是<strong>「被刪除的元素陣列」</strong>，否則不會用到它的回傳值</p>
+				</div>
+				<h3>範例</h3>
+				<pre><code class="javascript">// 建立不完整的一周陣列
+const days = ['Sun', 'Mon', 'Tue', "Fri", "Sat"]
+// 在索引值3的位置插入兩個新元素
+const deletedElement = days.splice(3, 0, 'Wed', 'Thur')
+// 輸出結果：["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
+console.log(days)
+// []
+console.log(deletedElement)</code></pre>
+				<h3>範例</h3>
+				<pre><code class="javascript">// 建立文字訊息陣列
+const message = ["Today", "is", "holiday"]
+// 從索引值2開始刪除1個元素，並插入元素
+const deletedElement = message.splice(2, 1, 'workday',)
+// 輸出結果：["Today", "is", "workday"]
+console.log(message)
+// 輸出結果：["holiday"]
+console.log(deletedElement)</code></pre>
+
+
+
+
+				<h2 id="from">Array.from( )</h2>
+				<h3>語法：Array.from(array-like, [callback], [thisArg])</h3>
+				<h3>用途：透過array-like-object（類陣列物件）或iterable-object（可迭代物件）建立一個新的Array實體</h3>
+				<p><strong>回傳值：</strong>新建立的Array實體</p>
+				<p><strong>array-like：</strong>array-like-object（類陣列物件）或iterable-object（可迭代物件）</p>
+				<p><strong>[callback]：</strong>迭代新陣列中的每個元素</p>
+				<p><strong>[thisArg]：</strong>設定callback中this值的參考值（指向哪個物件）</p>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">補充說明</p>
+					<p>目前已知的iterable-object資料型別有： <strong>string</strong>、<strong>array</strong>、<strong>array-like
+							object</strong></p>
+					<p>註：array-like-object並非皆可迭代，要看有沒有內建<strong>@@iterator</strong>方法才算數</p>
+				</div>
+				<h3>範例（將可迭代 / 類陣列物件轉換成陣列）</h3>
+				<pre><code class="javascript">// 建立一個IIFE
+(function(number1, number2) {
+	// 建立可迭代物件（字串）
+	const string = 'Whatever'
+	// 儲存類陣列物件（function自帶的arguments物件）
+	const argObj = arguments
+	
+	// 透過可迭代物件建立新的Array
+	const createFromIterable = Array.from(string)
+	// 透過類陣列物件建立新的Array
+	const createFromArrayLike = Array.from(argObj)
+	
+	// 輸出結果：["W", "h", "a", "t", "e", "v", "e", "r"]
+	console.log(createFromIterable)
+	// 輸出結果：Object { 0: 100, 1: 1000 }
+	console.log(argObj)
+	// 輸出結果：[100, 1000]
+	console.log(createFromArrayLike)
+
+})(100, 1000) // IIFE的參數</code></pre>
+				<!-- dialog-box -->
+				<div class="dialog-box note">
+					<p class="dialog-title note">補充說明</p>
+					<p>這裡建立了一個IIFE（Immediately Invoked Function Expression），目的是要取得function物件中的「arguments物件」。</p>
+					<p>如果你想用一般的函式宣告來定義函式也是OK的，不過此處為了省去呼叫的步驟（偷懶）所以直接以IIFE來定義。</p>
+				</div>
+				<h3>範例（使用callback）</h3>
+				<pre><code class="javascript">// 建立可迭代物件（字串）
+const string = 'Whatever'
+Array.from(string, function(element, index) {
+  // 印出迭代元素與其索引值
+  console.log(`${element} [${index}]`)
+  // 輸出結果：
+  // "W [0]"
+  // "h [1]"
+  // "a [2]"
+  // "t [3]"
+  // "e [4]"
+  // "v [5]"
+  // "e [6]"
+  // "r [7]"
+})
+</code></pre>
+
+
+
+				<h3 style="text-align: center;">持續更新中.....</h3>
+			</article>
+		</div>
+		<!-- Footer -->
+		<footer class="footer">
+			<p>Hosted on <a
+					class="link"
+					href="#"
+				>Github</a></p>
+			<p>The code is open source and available at <a
+					class="link"
+					href="#"
+				>calpa/gatsby-starter-calpa-blog</a></p>
+			Copyright <a
+				class="link"
+				href="#"
+			>©Calpa</a> Calpa 的技術博客2021 Theme by Calpa Liu
+		</footer>
+	</div>
+
+
+
+
+
+
+	<!-- Vue -->
+	<script src="https://unpkg.com/vue@3.0.11"></script>
+	<script src="../js/article.js"></script>
+	<!-- jQuery -->
+	<script
+		src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'
+		integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=='
+		crossorigin='anonymous'
+	></script>
+	<!-- JavaScript -->
+	<script src="../js/smooth-scroll.js"></script>
+	<script src="../js/nav-burger.js"></script>
+</body>
+
+</html>
